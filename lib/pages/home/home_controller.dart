@@ -16,6 +16,7 @@ class HomeController extends GetxController {
 
     hasEnableBiometricAuth =
         await _biometricServiceController.hasEnableBiometricAuth() ?? false;
+
     update();
     super.onInit();
   }
@@ -30,32 +31,14 @@ class HomeController extends GetxController {
   }
 
   void enableBiometricLogin() async {
-    final bool saved = await _biometricServiceController.setBoolInLocalStorage(
-      'enableBiometricAuth',
-      true,
-    );
-
-    if (saved) {
-      _biometricServiceController.setValueInSecureStorage('username', 'admin');
-      _biometricServiceController.setValueInSecureStorage('password', 'admin');
-
-      hasEnableBiometricAuth = true;
-      update();
-    }
+    _biometricServiceController.enableBiometricAuth('admin', 'admin');
+    hasEnableBiometricAuth = true;
+    update();
   }
 
   void disableBiometricLogin() async {
-    final bool saved = await _biometricServiceController.setBoolInLocalStorage(
-      'enableBiometricAuth',
-      false,
-    );
-
-    if (saved) {
-      _biometricServiceController.removeValueInSecureStorage('username');
-      _biometricServiceController.removeValueInSecureStorage('password');
-
-      hasEnableBiometricAuth = false;
-      update();
-    }
+    await _biometricServiceController.disableBiometricAuth();
+    hasEnableBiometricAuth = false;
+    update();
   }
 }

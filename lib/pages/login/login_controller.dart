@@ -31,13 +31,9 @@ class LoginController extends GetxController {
     hasEnableBiometricAuth =
         await _biometricServiceController.hasEnableBiometricAuth() ?? false;
     update();
-
-    print(await _biometricServiceController.hasEnableBiometricAuth());
-    print(hasEnableBiometricAuth);
   }
 
   void handleHidePwd() {
-    print(_biometricServiceController.hasEnableBiometricAuth());
     hidePwd = !hidePwd;
     update();
   }
@@ -72,7 +68,6 @@ class LoginController extends GetxController {
         }
       } else {
         /// Navegar a la página de login
-        print(123);
       }
     }
   }

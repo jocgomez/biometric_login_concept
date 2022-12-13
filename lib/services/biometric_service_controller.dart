@@ -32,6 +32,18 @@ class BiometricServiceController extends GetxController {
     }
   }
 
+  Future<void> disableBiometricAuth() async {
+    await setBoolInLocalStorage('enableBiometricAuth', false);
+    await removeValueInSecureStorage('username');
+    await removeValueInSecureStorage('password');
+  }
+
+  Future<void> enableBiometricAuth(String username, String pwd) async {
+    await setBoolInLocalStorage('enableBiometricAuth', true);
+    await setValueInSecureStorage('username', username);
+    await setValueInSecureStorage('password', pwd);
+  }
+
   Future<String?> getValueFromSecureStorage(String key) async {
     return await _secureStorageService.getString(key);
   }
